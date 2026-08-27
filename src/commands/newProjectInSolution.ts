@@ -1,7 +1,8 @@
 import * as vscode from "vscode";
 import * as path from "node:path";
-import { findSolutionFiles } from "../workspace";
+import { findSolutionFiles, resolveTargetDirectory } from "../workspace";
 import { runDotnetWithOutput } from "../dotnetCli";
+import { isSlnPath, orderWithSuggestedFirst, pickSuggestedSln } from "../resourcePick";
 
 type TemplateChoice = {
   label: string;
@@ -58,7 +59,9 @@ function getTemplates(): TemplateChoice[] {
 }
 
 export function registerNewProjectInSolution(context: vscode.ExtensionContext): void {
-  const disposable = vscode.commands.registerCommand("dotnetConv.newProjectInSolution", async () => {
+  const disposable = vscode.commands.registerCommand(
+    "dotnetConv.newProjectInSolution",
+    async (resource?: vscode.Uri) => {
     try {
       const slns = await findSolutionFiles();
       if (!slns.length) {
@@ -66,19 +69,30 @@ export function registerNewProjectInSolution(context: vscode.ExtensionContext): 
         return;
       }
 
-      const slnPick =
-        slns.length === 1
-          ? { uri: slns[0] }
-          : await vscode.window.showQuickPick(
-              slns.map((s) => ({
-                label: vscode.workspace.asRelativePath(s),
-                uri: s,
-              })),
-              {
-                title: vscode.l10n.t("Solution"),
-                placeHolder: vscode.l10n.t("Choose the .sln"),
-              },
-            );
+      const slnPaths = slns.map((s) => s.fsPath);
+      const anchor = resource ?? (await resolveTargetDirectory(undefined));
+      const suggestedPath = pickSuggestedSln(anchor.fsPath, slnPaths);
+
+      let slnPick: { uri: vscode.Uri } | undefined;
+      if (resource && isSlnPath(resource.fsPath) && suggestedPath) {
+        slnPick = { uri: vscode.Uri.file(suggestedPath) };
+      } else if (slns.length === 1) {
+        slnPick = { uri: slns[0] };
+      } else {
+        const ordered = orderWithSuggestedFirst(slnPaths, suggestedPath);
+        slnPick = await vscode.window.showQuickPick(
+          ordered.map((s) => ({
+            label: vscode.workspace.asRelativePath(s),
+            uri: vscode.Uri.file(s),
+          })),
+          {
+            title: vscode.l10n.t("Solution"),
+            placeHolder: suggestedPath
+              ? vscode.l10n.t("Suggested above: {0}", vscode.workspace.asRelativePath(suggestedPath))
+              : vscode.l10n.t("Choose the .sln"),
+          },
+        );
+      }
       if (!slnPick) {
         return;
       }

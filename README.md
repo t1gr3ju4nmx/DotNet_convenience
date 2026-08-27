@@ -12,7 +12,7 @@
 
 Extension for **Visual Studio Code** and **Cursor** that adds shortcuts for common **.NET** workflows (complements C# Dev Kit and the SDK).
 
-By [Johnny Sánchez / CreateIT](https://www.createit.com.mx) · [JohnnyC-SH](https://github.com/JohnnyC-SH)  
+**Author:** [Johnny Sánchez](https://www.johnnycsh.com) · [CreateIT](https://www.createit.com.mx) · [JohnnyC-SH](https://github.com/JohnnyC-SH)  
 Repository: [github.com/JohnnyC-SH/DotNet_convenience](https://github.com/JohnnyC-SH/DotNet_convenience)
 
 UI strings follow your editor language: **English** by default, **Spanish** when the display language is `es` (see `package.nls.*` and `l10n/bundle.l10n.*`).
@@ -23,11 +23,15 @@ UI strings follow your editor language: **English** by default, **Spanish** when
 
 ### Screenshots
 
-Paths are **relative to the package** so they load on the extension page when installing from a VSIX.
+Paths are **relative to the package** so they load on the Marketplace page and when installing from a VSIX.
 
-![Command Palette with .NET prefix](docs/screenshots/paleta-comandos.png)
+![Command Palette with .NET prefix — includes project reference and new project in solution](docs/screenshots/en/command-palette.jpg)
 
-![Explorer context menu](docs/screenshots/menu-explorador.png)
+![Explorer context menu on a folder](docs/screenshots/en/explorer-folder.jpg)
+
+![Explorer context menu on a .csproj — Add project reference](docs/screenshots/en/explorer-csproj.jpg)
+
+![Explorer context menu on a .sln — New project in solution](docs/screenshots/en/explorer-sln.jpg)
 
 ### Requirements
 
@@ -45,10 +49,14 @@ Search for the **`.NET:`** prefix.
 | Add Razor component | Creates a `.razor` with `@namespace`. |
 | Add Razor page with `@page` | Creates a page with a configurable route. |
 | Add controller (API or MVC) | Web API (`ControllerBase`) or MVC (`Controller`). |
-| Add project reference | Runs `dotnet add … reference …`. |
-| New project in solution | `dotnet new` and `dotnet sln add`. |
+| Add project reference | Runs `dotnet add … reference …`. Right-click a folder or `.csproj`. |
+| New project in solution | `dotnet new` and `dotnet sln add`. Right-click a folder or `.sln`. |
 
-There are also entries in the file explorer **context menu** (folders and `.cs` / `.razor` files).
+Explorer **context menu**:
+
+- Folders and `.cs` / `.razor` files: class, interface, Razor, controller.
+- Folders and `.csproj`: add project reference (the clicked project is preselected).
+- Folders and `.sln`: new project in the solution (the clicked solution is used).
 
 ### Development
 
@@ -57,6 +65,7 @@ git clone https://github.com/JohnnyC-SH/DotNet_convenience.git
 cd DotNet_convenience
 npm install
 npm run compile
+npm test
 ```
 
 Package as `.vsix`:
@@ -68,7 +77,7 @@ npx @vscode/vsce package
 Install in Cursor/VS Code:
 
 ```bash
-cursor --install-extension dotnet-convenience-0.2.7.vsix
+cursor --install-extension dotnet-convenience-0.2.8.vsix
 # or: code --install-extension …
 ```
 
@@ -89,6 +98,7 @@ cursor --uninstall-extension local.dotnet-convenience
 
 | Project | What it is |
 |---|---|
+| [johnnycsh.com](https://www.johnnycsh.com) | Author site — projects, services, contact |
 | [JohnnyMsgBox](https://github.com/JohnnyC-SH/JohnnyMsgBox) | MessageBox / dialogs / toasts for Blazor & HTML |
 | [JohnnyIconMaker](https://github.com/JohnnyC-SH/JohnnyIconMaker) | App icon packing (Windows, macOS, mobile) |
 | [create.it](https://www.createit.com.mx) | CreateIT website & brand |
@@ -103,7 +113,7 @@ MIT — see `LICENSE` in this folder.
 
 Extensión para **Visual Studio Code** y **Cursor** que añade atajos para flujos habituales de **.NET** (complementa C# Dev Kit y el SDK).
 
-Por [Johnny Sánchez / CreateIT](https://www.createit.com.mx) · [JohnnyC-SH](https://github.com/JohnnyC-SH)  
+**Autor:** [Johnny Sánchez](https://www.johnnycsh.com) · [CreateIT](https://www.createit.com.mx) · [JohnnyC-SH](https://github.com/JohnnyC-SH)  
 Repositorio: [github.com/JohnnyC-SH/DotNet_convenience](https://github.com/JohnnyC-SH/DotNet_convenience)
 
 *(En instalaciones por `.vsix`, Cursor/VS Code a veces **no muestra** el botón “Sponsor” del `package.json`; el enlace de PayPal del inicio es el que siempre funciona.)*
@@ -112,11 +122,15 @@ Los textos de la interfaz respetan el idioma del editor: **inglés** por defecto
 
 ### Capturas
 
-Las rutas son **relativas al paquete** para que carguen en la ficha de la extensión al instalar desde VSIX.
+Las rutas son **relativas al paquete** para que carguen en la ficha de Marketplace y al instalar desde VSIX.
 
-![Paleta de comandos con prefijo .NET](docs/screenshots/paleta-comandos.png)
+![Paleta de comandos con prefijo .NET — incluye referencia y proyecto nuevo en la solución](docs/screenshots/es/paleta-comandos.jpg)
 
-![Menú contextual en el explorador](docs/screenshots/menu-explorador.png)
+![Menú contextual en una carpeta](docs/screenshots/es/menu-carpeta.jpg)
+
+![Menú contextual en un .csproj — Agregar referencia a otro proyecto](docs/screenshots/es/menu-csproj.jpg)
+
+![Menú contextual en un .sln — Nuevo proyecto en la solución](docs/screenshots/es/menu-sln.jpg)
 
 ### Requisitos
 
@@ -134,10 +148,14 @@ Busca el prefijo **`.NET:`**.
 | Agregar componente Razor | Crea un `.razor` con `@namespace`. |
 | Agregar página Razor con `@page` | Crea una página con ruta configurable. |
 | Agregar controller (API o MVC) | Web API (`ControllerBase`) o MVC (`Controller`). |
-| Agregar referencia a otro proyecto | Ejecuta `dotnet add … reference …`. |
-| Nuevo proyecto en la solución | `dotnet new` y `dotnet sln add`. |
+| Agregar referencia a otro proyecto | Ejecuta `dotnet add … reference …`. Clic derecho en carpeta o `.csproj`. |
+| Nuevo proyecto en la solución | `dotnet new` y `dotnet sln add`. Clic derecho en carpeta o `.sln`. |
 
-También hay entradas en el **menú contextual** del explorador de archivos (carpetas y archivos `.cs` / `.razor`).
+Menú **contextual** del explorador:
+
+- Carpetas y archivos `.cs` / `.razor`: clase, interfaz, Razor, controller.
+- Carpetas y `.csproj`: agregar referencia (el proyecto clicado queda preseleccionado).
+- Carpetas y `.sln`: nuevo proyecto en la solución (se usa la solución clicada).
 
 ### Desarrollo
 
@@ -146,6 +164,7 @@ git clone https://github.com/JohnnyC-SH/DotNet_convenience.git
 cd DotNet_convenience
 npm install
 npm run compile
+npm test
 ```
 
 Empaquetar como `.vsix`:
@@ -157,7 +176,7 @@ npx @vscode/vsce package
 Instalar en Cursor/VS Code:
 
 ```bash
-cursor --install-extension dotnet-convenience-0.2.7.vsix
+cursor --install-extension dotnet-convenience-0.2.8.vsix
 # o: code --install-extension …
 ```
 
@@ -178,6 +197,7 @@ cursor --uninstall-extension local.dotnet-convenience
 
 | Proyecto | Qué es |
 |---|---|
+| [johnnycsh.com](https://www.johnnycsh.com) | Sitio del autor — proyectos, servicios, contacto |
 | [JohnnyMsgBox](https://github.com/JohnnyC-SH/JohnnyMsgBox) | MessageBox / diálogos / toasts para Blazor y HTML |
 | [JohnnyIconMaker](https://github.com/JohnnyC-SH/JohnnyIconMaker) | Generación / empaquetado de iconos (Win, Mac, móvil) |
 | [create.it](https://www.createit.com.mx) | Sitio y marca CreateIT |

@@ -2,7 +2,7 @@
   "name": "dotnet-convenience",
   "displayName": ".NET Convenience",
   "description": "%extension.description%",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "publisher": "t1gr3ju4nmx",
   "icon": "images/icon.png",
   "license": "MIT",
@@ -10,10 +10,10 @@
     "url": "https://paypal.me/SIPTecMX"
   },
   "author": {
-    "name": "JohnnyC-SH",
-    "url": "https://github.com/JohnnyC-SH"
+    "name": "Johnny Sánchez",
+    "url": "https://www.johnnycsh.com"
   },
-  "homepage": "https://github.com/JohnnyC-SH/DotNet_convenience#readme",
+  "homepage": "https://www.johnnycsh.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/JohnnyC-SH/DotNet_convenience.git"
@@ -97,6 +97,16 @@
           "command": "dotnetConv.addController",
           "group": "dotnetConv@5",
           "when": "resourceScheme == file && (explorerResourceIsFolder || resourceExtname == .cs || resourceExtname == .razor)"
+        },
+        {
+          "command": "dotnetConv.addProjectReference",
+          "group": "dotnetConv@6",
+          "when": "resourceScheme == file && (explorerResourceIsFolder || resourceExtname == .csproj)"
+        },
+        {
+          "command": "dotnetConv.newProjectInSolution",
+          "group": "dotnetConv@7",
+          "when": "resourceScheme == file && (explorerResourceIsFolder || resourceExtname == .sln)"
         }
       ]
     }
@@ -104,7 +114,8 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node --test test/*.test.mjs"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
